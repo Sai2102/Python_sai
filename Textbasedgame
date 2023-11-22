@@ -1,0 +1,96 @@
+import time
+
+# Player class to store player information
+class Player:
+    def __init__(self):
+        self.name = ""
+        self.inventory = []
+        self.progress = 0
+
+# Function to display introduction and get player's name
+def introduction():
+    print("Welcome to the Text Adventure Game!")
+    time.sleep(1)
+    player.name = input("What is your name, adventurer? ")
+    print(f"Good luck on your journey, {player.name}!\n")
+    time.sleep(1)
+
+# Function to handle player choices
+def make_choice(choices):
+    for i, choice in enumerate(choices, 1):
+        print(f"{i}. {choice}")
+
+    while True:
+        try:
+            choice = int(input("Choose your action: "))
+            if 1 <= choice <= len(choices):
+                return choice
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+# Function to handle different story paths based on player choices
+def play_game():
+    print("You find yourself at the entrance of a dark cave.")
+    time.sleep(1)
+
+    choices = ["Enter the cave", "Look for another path"]
+    choice = make_choice(choices)
+
+    if choice == 1:
+        print("As you enter the cave, you hear strange noises echoing.")
+        time.sleep(1)
+        print("You see two tunnels, one on the left and one on the right.")
+
+        choices = ["Take the left tunnel", "Take the right tunnel"]
+        choice = make_choice(choices)
+
+        if choice == 1:
+            print("You encounter a friendly guide who offers you a magical amulet.")
+            player.inventory.append("Magical Amulet")
+            player.progress += 1
+            time.sleep(1)
+        else:
+            print("The right tunnel leads to a hidden treasure room, and you find a valuable sword.")
+            player.inventory.append("Valuable Sword")
+            player.progress += 2
+            time.sleep(1)
+
+    else:
+        print("You decide not to enter the cave and search for another path.")
+        time.sleep(1)
+        print("You discover a secret passage leading to an ancient library.")
+
+        choices = ["Explore the library", "Leave the area"]
+        choice = make_choice(choices)
+
+        if choice == 1:
+            print("In the library, you find a dusty book that reveals the location of a powerful artifact.")
+            player.inventory.append("Powerful Artifact")
+            player.progress += 3
+            time.sleep(1)
+        else:
+            print("You choose to leave the area and continue your journey.")
+
+# Function to display multiple endings based on player progress
+def display_endings():
+    print(f"\nCongratulations, {player.name}! Your journey has come to an end.")
+
+    if player.progress >= 3:
+        print("You have successfully collected powerful items and defeated the darkness.")
+        print("You are hailed as a hero, and Eldoria is saved!")
+
+    elif player.progress >= 2:
+        print("You managed to find valuable items, but darkness still lingers in Eldoria.")
+        print("The people are grateful for your efforts, but the threat is not fully eradicated.")
+
+    else:
+        print("You couldn't gather enough strength to overcome the challenges.")
+        print("Eldoria remains in darkness, and your journey ends in uncertainty.")
+
+# Main game loop
+player = Player()
+introduction()
+play_game()
+display_endings()
